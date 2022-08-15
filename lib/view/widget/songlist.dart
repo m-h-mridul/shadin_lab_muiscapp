@@ -6,8 +6,8 @@ ListTile songlist() {
   return ListTile(
     trailing: Column(
       children: [
-        Spacer(),
-        Icon(
+        const Spacer(),
+        const Icon(
           Icons.play_circle,
           color: Colors.white,
         ),
