@@ -110,7 +110,7 @@ class AlbumeView extends StatelessWidget {
                     data: Theme.of(context).copyWith(
                       unselectedWidgetColor:
                           Colors.white, // here for close state
-                      colorScheme: ColorScheme.light(
+                      colorScheme:const ColorScheme.light(
                         primary: Colors.white,
                       ), // here for open state in replacement of deprecated accentColor
                       dividerColor: Colors
