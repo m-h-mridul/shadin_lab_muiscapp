@@ -11,4 +11,5 @@ class ColorManager {
   static const Color grey = Color(0xFF565977);
   static const LinearGradient gradient =
       LinearGradient(colors: <Color>[buttom, greadientend]);
+    static const gradient_constiner=<Color>[buttom, greadientend];
 }

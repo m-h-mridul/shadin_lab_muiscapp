@@ -1,23 +1,18 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/instance_manager.dart';
-import 'package:music_app/utils/constant/imageName.dart';
 import 'package:music_app/utils/resource/ColorManager.dart';
 import 'package:music_app/utils/resource/media.dart';
 import 'package:music_app/utils/resource/textstyle.dart';
 import 'package:music_app/view/screen/_songplay.dart';
-
 import '../../utils/constant/buttonName.dart';
 import '../../utils/constant/heading.dart';
 import '../../utils/constant/listten_sublisst.dart';
 import '../widget/category_listview.dart';
 import '../widget/playsublistview.dart';
 import '../widget/song_view.dart';
+import '_albumneview.dart';
 
 class HomeUI extends StatelessWidget {
   const HomeUI({Key? key}) : super(key: key);
@@ -105,8 +100,11 @@ class HomeUI extends StatelessWidget {
                   ),
                   scrollDirection: Axis.horizontal,
                   itemCount: Play_sublist.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      play_sublist_view(index),
+                  itemBuilder: (BuildContext context, int index) => InkWell(
+                      onTap: () {
+                        Get.to(() => AlbumeView());
+                      },
+                      child: play_sublist_view(index)),
                 ),
               ),
               Row(

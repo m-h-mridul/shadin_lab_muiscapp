@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:music_app/utils/constant/imageName.dart';
 import 'package:music_app/utils/resource/media.dart';
 import 'package:music_app/utils/resource/textstyle.dart';

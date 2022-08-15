@@ -18,6 +18,12 @@ class TextStyleManager {
     color: Colors.white54,
     //fontStyle: FontStyle.
   );
+   static TextStyle lato18white54 = GoogleFonts.lato(
+    fontSize: MediaQuerypage.fontsize! * 18,
+    fontWeight: FontWeight.w500,
+    color: Colors.white54,
+    //fontStyle: FontStyle.
+  );
   static TextStyle lato13white = GoogleFonts.lato(
     fontSize: MediaQuerypage.fontsize! * 13,
     fontWeight: FontWeight.w500,
