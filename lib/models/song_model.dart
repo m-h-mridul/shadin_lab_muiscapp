@@ -1,15 +1,16 @@
 class Song {
-   final String title;
-   final String description;
-   final String url;
-   final String coverUrl;
+  final String title;
+  final String description;
+  final String url;
+  final String coverUrl;
+  String datapreview = '';
 
-  Song({
-    required this.title,
-    required this.description,
-    required this.url,
-    required this.coverUrl,
-  });
+  Song(
+      {required this.title,
+      required this.description,
+      required this.url,
+      required this.coverUrl,
+      this.datapreview = ''});
 
   static List<Song> songs = [
     Song(

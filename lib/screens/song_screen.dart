@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
-
 import 'package:musicapp/models/searddatamodel.dart';
-
-import '../models/song_model.dart';
 import '../widgets/widgets.dart';
+
+Data _data = Data(
+    title: 'Pray',
+    type: 'Pray',
+    preview: 'asset:///assets/music/pray.mp3',
+    md5Image: 'assets/images/pray.jpg',
+    artist: Artist(pictureBig: "assets/images/pray.jpg"));
 
 class SongScreen extends StatefulWidget {
   SongScreen({
@@ -20,23 +24,17 @@ class SongScreen extends StatefulWidget {
 
 class _SongScreenState extends State<SongScreen> {
   AudioPlayer audioPlayer = AudioPlayer();
-  Data data = Get.arguments;
-  Song? song2;
-
+  Data data = Get.arguments ?? _data;
   @override
   void initState() {
     super.initState();
-    song2 = Song(
-        coverUrl: data.artist!.pictureBig!,
-        url: data.preview!,
-        title: data.title!,
-        description: data.titleShort!);
 
     audioPlayer.setAudioSource(
       ConcatenatingAudioSource(
         children: [
           AudioSource.uri(
             Uri.parse(data.preview!),
+            // Uri.parse('asset:///${song.url}'),
           ),
         ],
       ),
@@ -74,11 +72,21 @@ class _SongScreenState extends State<SongScreen> {
         children: [
           Image.network(
             data.artist!.pictureBig!,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return const CircularProgressIndicator(); // Show a loading spinner while the image is loading
+            },
+            errorBuilder: (context, error, stackTrace) {
+              return Image.asset(
+                data.artist!.pictureBig!,
+                fit: BoxFit.cover,
+              ); // Show the dummy image when the network image fails to load
+            },
             fit: BoxFit.cover,
           ),
           const _BackgroundFilter(),
           _MusicPlayer(
-            song: song2!,
+            data: data,
             seekBarDataStream: _seekBarDataStream,
             audioPlayer: audioPlayer,
           ),
@@ -89,15 +97,14 @@ class _SongScreenState extends State<SongScreen> {
 }
 
 class _MusicPlayer extends StatelessWidget {
-  const _MusicPlayer({
+  _MusicPlayer({
     Key? key,
-    required this.song,
+    required this.data,
     required Stream<SeekBarData> seekBarDataStream,
     required this.audioPlayer,
   })  : _seekBarDataStream = seekBarDataStream,
         super(key: key);
-
-  final Song song;
+  Data data;
   final Stream<SeekBarData> _seekBarDataStream;
   final AudioPlayer audioPlayer;
 
@@ -113,7 +120,7 @@ class _MusicPlayer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            song.title,
+            data.title!,
             style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -121,7 +128,7 @@ class _MusicPlayer extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            song.description,
+            data.type!,
             maxLines: 2,
             style: Theme.of(context)
                 .textTheme

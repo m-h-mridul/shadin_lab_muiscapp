@@ -23,6 +23,9 @@ dependencies:
   just_audio: ^0.9.28
   rxdart: ^0.27.5
   dio: ^5.3.1
+  file_picker: ^5.3.3
+  on_audio_query: ^2.9.0
+  permission_handler: ^10.4.3
   
 
 dev_dependencies:

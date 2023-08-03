@@ -196,7 +196,4 @@ class _CustomAppBar extends StatelessWidget {
       ],
     );
   }
-
-  // @override
-  // Size get preferredSize => const Size.fromHeight(56.0);
 }

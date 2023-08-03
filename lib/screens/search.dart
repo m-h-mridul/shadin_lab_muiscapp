@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:musicapp/helper/mediaquery.dart';
 import 'package:musicapp/models/searddatamodel.dart';
+import '../models/song_model.dart';
 import '../service/searchget.dart';
 
 class Search extends StatelessWidget {
@@ -60,7 +60,8 @@ class Search extends StatelessWidget {
                 child: Obx(
                   () => searchList.total == null
                       ? Center(
-                          child: Text('No search data found ${searchList.total}',
+                          child: Text(
+                              'No search data found ${searchList.total}',
                               style: TextStyle(
                                   fontSize: MediaQuerypage.fontsize! * 18,
                                   color: Colors.white)),
@@ -70,8 +71,8 @@ class Search extends StatelessWidget {
                           itemBuilder: (context, index) {
                             Data data = searchList.data![index];
                             return InkWell(
-                              onTap: (){
-                                 Get.toNamed('/song', arguments: data);
+                              onTap: () {
+                                Get.toNamed('/song', arguments: data);
                               },
                               child: ListTile(
                                 // leading: Image.network(data.md5Image!),
