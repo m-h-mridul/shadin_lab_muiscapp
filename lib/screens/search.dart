@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicapp/helper/mediaquery.dart';
 import 'package:musicapp/models/searddatamodel.dart';
-import '../models/song_model.dart';
 import '../service/searchget.dart';
 
 class Search extends StatelessWidget {
@@ -61,7 +60,7 @@ class Search extends StatelessWidget {
                   () => searchList.total == null
                       ? Center(
                           child: Text(
-                              'No search data found ${searchList.total}',
+                              'No search data found ',
                               style: TextStyle(
                                   fontSize: MediaQuerypage.fontsize! * 18,
                                   color: Colors.white)),
@@ -75,7 +74,21 @@ class Search extends StatelessWidget {
                                 Get.toNamed('/song', arguments: data);
                               },
                               child: ListTile(
-                                // leading: Image.network(data.md5Image!),
+                                leading: Image.network(
+                                  data.artist!.pictureBig!,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return const CircularProgressIndicator();
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.asset(
+                                      data.artist!.pictureBig!,
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                  fit: BoxFit.cover,
+                                ),
                                 title: Text(data.title!),
                                 subtitle: Row(
                                   mainAxisAlignment:

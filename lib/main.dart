@@ -2,15 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musicapp/service/requestpermisson.dart';
 import 'screens/screens.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await permissionRequest();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomeScreen(),
       getPages: [
-        GetPage(name: '/', page: () => const HomeScreen()),
+        GetPage(name: '/', page: () => HomeScreen()),
         GetPage(name: '/song', page: () => SongScreen()),
         GetPage(name: '/playlist', page: () => const PlaylistScreen()),
       ],

@@ -74,13 +74,13 @@ class _SongScreenState extends State<SongScreen> {
             data.artist!.pictureBig!,
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) return child;
-              return const CircularProgressIndicator(); // Show a loading spinner while the image is loading
+              return const CircularProgressIndicator(); 
             },
             errorBuilder: (context, error, stackTrace) {
               return Image.asset(
-                data.artist!.pictureBig!,
+                'assets/images/glass.jpg',
                 fit: BoxFit.cover,
-              ); // Show the dummy image when the network image fails to load
+              ); 
             },
             fit: BoxFit.cover,
           ),

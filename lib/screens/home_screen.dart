@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicapp/screens/search.dart';
 import 'package:musicapp/screens/song_screen.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 import '../helper/mediaquery.dart';
 import '../models/playlist_model.dart';
 import '../models/song_model.dart';
@@ -12,8 +13,16 @@ import 'favorite.dart';
 
 RxInt _currentIndex = 0.obs;
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late RxList<String> songlist;
+  final OnAudioQuery _audioQuery = OnAudioQuery();
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +31,14 @@ class HomeScreen extends StatelessWidget {
     List<Playlist> playlists = Playlist.playlists;
 
     List<Widget> view = [
-      SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuerypage.smallSizeHeight! * 3,
-            ),
-            _TrendingMusic(songs: songs),
-            _PlaylistMusic(playlists: playlists),
-          ],
-        ),
+      Column(
+        children: [
+          SizedBox(
+            height: MediaQuerypage.smallSizeHeight! * 4,
+          ),
+          _TrendingMusic(songs: songs),
+          _PlaylistMusic(playlists: playlists),
+        ],
       ),
       FavoriteScreen(),
       SongScreen(),
@@ -52,7 +59,9 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         bottomNavigationBar: _CustomNavBar(),
-        body: Obx(() => view[_currentIndex.value]),
+        body: Obx(() {
+          return view[_currentIndex.value];
+        }),
       ),
     );
   }
@@ -169,31 +178,6 @@ class _CustomNavBar extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _CustomAppBar extends StatelessWidget {
-  const _CustomAppBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: const Icon(Icons.grid_view_rounded),
-      actions: [
-        Container(
-          margin: const EdgeInsets.only(right: 20),
-          child: const CircleAvatar(
-            backgroundImage: NetworkImage(
-              'https://images.unsplash.com/photo-1659025435463-a039676b45a0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80',
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
